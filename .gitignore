@@ -16,3 +16,5 @@ TaskFramework/bin/
 TaskServiceTests/bin/
 
 TaskServiceTests/obj/
+
+backend/TaskService.Contracts/obj/

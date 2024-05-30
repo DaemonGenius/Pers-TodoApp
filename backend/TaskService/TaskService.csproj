@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\TaskFramework\TaskFramework.csproj" />
+      <ProjectReference Include="..\TaskService.Contracts\TaskService.Contracts.csproj" />
     </ItemGroup>
 
 </Project>
