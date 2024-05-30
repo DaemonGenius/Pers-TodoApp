@@ -1,4 +1,4 @@
-namespace TodoFramework.Domain.Aggregates;
+namespace TaskFramework.Domain.Aggregates;
 
 public interface IRepository<TIdentity,TState> where TState: State<TIdentity> where TIdentity : Identity
 {

@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using TaskService.Application.Specifications.Rules;
 using TaskService.Domain;
-using TodoFramework.Domain.Specifications;
+using TaskFramework.Domain.Specifications;
 
 namespace TaskService.Application.Specifications;
 

@@ -1,4 +1,4 @@
-namespace TodoFramework.Domain.Aggregates.ValueObjects;
+namespace TaskFramework.Domain.Aggregates.ValueObjects;
 
 public abstract class ValueObject
 {

@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace TodoFramework.Domain.Specifications;
+namespace TaskFramework.Domain.Specifications;
 
 public class AndSpecification<TState>(ISpecification<TState> left, ISpecification<TState> right)
     : ISpecification<TState>

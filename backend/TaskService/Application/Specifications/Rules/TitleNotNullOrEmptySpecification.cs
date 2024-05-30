@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 using TaskService.Domain;
-using TodoFramework.Domain.Specifications;
+using TaskFramework.Domain.Specifications;
 
 namespace TaskService.Application.Specifications.Rules;
 

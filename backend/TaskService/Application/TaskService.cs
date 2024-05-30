@@ -1,6 +1,6 @@
 using TaskService.Application.Specifications;
 using TaskService.Domain;
-using TodoFramework.Application;
+using TaskFramework.Application;
 
 namespace TaskService.Application;
 

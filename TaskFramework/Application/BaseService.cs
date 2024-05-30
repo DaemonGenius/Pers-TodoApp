@@ -1,7 +1,7 @@
-using TodoFramework.Domain.Aggregates;
-using TodoFramework.Domain.Specifications;
+using TaskFramework.Domain.Aggregates;
+using TaskFramework.Domain.Specifications;
 
-namespace TodoFramework.Application;
+namespace TaskFramework.Application;
 
 public abstract class BaseService<TIdentity, TAggregate, TState, TRepository>(TRepository repository)
     where TIdentity : Identity

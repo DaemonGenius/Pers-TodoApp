@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\TodoFramework\TodoFramework.csproj" />
+      <ProjectReference Include="..\..\TaskFramework\TaskFramework.csproj" />
     </ItemGroup>
 
 </Project>

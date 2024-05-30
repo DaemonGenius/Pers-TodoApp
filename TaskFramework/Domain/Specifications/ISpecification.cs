@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace TodoFramework.Domain.Specifications;
+namespace TaskFramework.Domain.Specifications;
 
 public interface ISpecification<TState>
     where TState : class

@@ -1,4 +1,4 @@
-namespace TodoFramework.Domain.Aggregates;
+namespace TaskFramework.Domain.Aggregates;
 
 public abstract class State<TIdentity> where TIdentity: Identity
 {

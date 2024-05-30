@@ -1,5 +1,5 @@
 using TaskService.Domain.Events;
-using TodoFramework.Domain.Aggregates;
+using TaskFramework.Domain.Aggregates;
 using static System.DateTimeOffset;
 
 namespace TaskService.Domain;
