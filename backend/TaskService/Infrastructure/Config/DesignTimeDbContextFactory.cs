@@ -18,7 +18,7 @@ public class DesignTimeDbContextFactory: IDesignTimeDbContextFactory<TaskService
         // Use IConfiguration for design-time configuration
         var configuration = new ConfigurationBuilder()
             .SetBasePath(relativePath)
-            .AddJsonFile("TaskService.Ports/appsettings.Development.json", false, true)
+            .AddJsonFile("AppFrontend/appsettings.Development.json", false, true)
             .Build();
 
         var optionsBuilder = new DbContextOptionsBuilder<TaskServiceContext>();

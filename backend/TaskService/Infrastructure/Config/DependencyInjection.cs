@@ -11,7 +11,7 @@ public static class DependencyInjection
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<ITaskRepository, TaskRepository>();
+        services.AddScoped<ITaskRepository, TaskRepository>();
         
         var connectionString = configuration.GetConnectionString("postgresDb");
         services.AddEntityFrameworkNpgsql()

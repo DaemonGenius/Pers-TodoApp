@@ -4,3 +4,11 @@ backend/TaskService/obj/
 TodoFramework/obj/
 
 TaskFramework/obj/
+
+AppFrontend/obj/
+
+AppFrontend/bin/
+
+backend/TaskService/bin/
+
+TaskFramework/bin/
