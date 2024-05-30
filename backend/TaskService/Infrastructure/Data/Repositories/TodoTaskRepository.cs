@@ -1,35 +1,68 @@
+using Microsoft.EntityFrameworkCore;
 using TaskService.Domain.Entities;
 using TaskService.Domain.Interfaces;
+using TaskService.Infrastructure.Database;
 
 namespace TaskService.Infrastructure.Data.Repositories;
 
-public class TodoTaskRepository : ITodoTaskRepository
+public class TodoTaskRepository(TodoTaskServiceContext context) : ITodoTaskRepository
 {
-    private readonly Dictionary<Guid, TodoTask> _tasks = new Dictionary<Guid, TodoTask>();
-
-    public TodoTask GetTaskById(Guid id)
+    private readonly TodoTaskServiceContext _context = context ?? throw new ArgumentNullException(nameof(context));
+    public async Task<TodoTask?> GetTaskById(Guid id)
     {
-        _tasks.TryGetValue(id, out var task);
-        return task;
+        return await _context.TodoTasks.FirstOrDefaultAsync(x => x.Identity.Reference == id);
     }
 
-    public IEnumerable<TodoTask> GetAllTasks()
+    public async Task Save(TodoTask task)
     {
-        return _tasks.Values.ToList();
+        if (task == null)
+            throw new ArgumentNullException(nameof(task));
+
+        var taskInDb = await GetTaskById(task.Identity.Reference);
+
+        if (taskInDb != null)
+            _context.Entry(taskInDb).CurrentValues.SetValues(task);
+        else
+            await _context.TodoTasks.AddAsync(task);
+            
+        await _context.SaveChangesAsync();
     }
 
-    public void AddTask(TodoTask task)
+    public async Task<IEnumerable<TodoTask>> GetAllTasks()
     {
-        _tasks[task.Id] = task;
+        return await _context.TodoTasks.ToListAsync();
     }
 
-    public void UpdateTask(TodoTask task)
+    public async Task AddTask(TodoTask task)
     {
-        _tasks[task.Id] = task;
+        if (task == null)
+            throw new ArgumentNullException(nameof(task));
+
+        await _context.TodoTasks.AddAsync(task);
+        await _context.SaveChangesAsync();
     }
 
-    public void RemoveTask(Guid id)
+    public async Task UpdateTask(TodoTask task)
     {
-        _tasks.Remove(id);
+        if (task == null)
+            throw new ArgumentNullException(nameof(task));
+
+        var taskInDb = await GetTaskById(task.Identity.Reference);
+
+        if (taskInDb != null)
+        {
+            _context.Entry(taskInDb).CurrentValues.SetValues(task);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task RemoveTask(Guid id)
+    {
+        var task = await GetTaskById(id);
+        if (task != null)
+        {
+            _context.TodoTasks.Remove(task);
+            await _context.SaveChangesAsync();
+        }
     }
 }

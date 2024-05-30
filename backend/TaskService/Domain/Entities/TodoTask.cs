@@ -1,31 +1,56 @@
-using System.ComponentModel.DataAnnotations;
-using TaskService.Domain.States;
+using TaskService.Domain.Events;
+using TodoFramework.Domain;
 
 namespace TaskService.Domain.Entities;
 
-public class TodoTask
+public class TodoTask: State<TodoTaskIdentity>
 {
-    [Key]
-    public Guid Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public bool IsComplete { get; set; }
-    public DateTime DueDate { get; set; }
-    public int Priority { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
-    public ITaskState State { get; set; }
-
-    public TodoTask()
+    public TodoTask(TodoTaskIdentity todoTaskIdentity) : base(todoTaskIdentity)
     {
-        Id = Guid.NewGuid();
-        IsComplete = false;
-        CreatedAt = DateTime.UtcNow;
-        UpdatedAt = DateTime.UtcNow;
-        State = new NewTaskState();
     }
 
-    public void Create() => State.Create(this);
-    public void Modify() => State.Modify(this);
-    public void Remove() => State.Remove(this);
+    protected TodoTask()
+    {
+    }
+    
+    public string Title { get; private set; }
+    public string Description { get; private set; }
+    public bool IsComplete { get; private set; } = false;
+    public DateTime DueDate { get; private set; }
+    public int Priority { get; private set; }
+    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; private set; } = DateTime.UtcNow;
+    public StateStatus State { get; private set; } = StateStatus.New;
+
+    private void Apply(TodoTaskCreated evt)
+    {
+        Title = evt.Title;
+        Description = evt.Description;
+        DueDate = evt.DueDate;
+        Priority = evt.Priority;
+        State = StateStatus.Active;
+    }
+
+    private void Apply(TodoTaskModified evt)
+    {
+        Title = evt.Title;
+        Description = evt.Description;
+        DueDate = evt.DueDate;
+        Priority = evt.Priority;
+        UpdatedAt = DateTime.UtcNow;
+        State = StateStatus.Modified;
+    }
+
+    private void Apply(TodoTaskRemoved evt)
+    {
+        IsComplete = true;
+        UpdatedAt = DateTime.UtcNow;
+        State = StateStatus.Removed;
+    }
+
+    // Command methods to trigger events
+    public void Create(TodoTaskCreated evt) => Apply(evt);
+    public void Modify(TodoTaskModified evt) => Apply(evt);
+    public void Remove(TodoTaskRemoved evt) => Apply(evt);
 }
+

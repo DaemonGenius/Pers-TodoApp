@@ -1,7 +1,7 @@
 using TaskService.Domain.Entities;
 using TaskService.Domain.Interfaces;
 
-namespace TaskService.Domain.Services.Queries;
+namespace TaskService.Application.Services.Queries;
 
 public class TodoTaskQueryService: ITodoTaskQueryService
 {
@@ -12,13 +12,13 @@ public class TodoTaskQueryService: ITodoTaskQueryService
         _taskRepository = taskRepository;
     }
 
-    public TodoTask GetTask(Guid id)
+    public async Task<TodoTask?> GetTask(Guid id)
     {
-        return _taskRepository.GetTaskById(id);
+        return await _taskRepository.GetTaskById(id);
     }
 
-    public IEnumerable<TodoTask> GetAllTasks()
+    public async Task<IEnumerable<TodoTask>> GetAllTasks()
     {
-        return _taskRepository.GetAllTasks();
+        return await _taskRepository.GetAllTasks();
     }
 }

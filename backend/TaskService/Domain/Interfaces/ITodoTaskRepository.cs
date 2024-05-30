@@ -4,13 +4,9 @@ namespace TaskService.Domain.Interfaces;
 
 public interface ITodoTaskRepository
 {
-    public TodoTask GetTaskById(Guid id);
-
-    public IEnumerable<TodoTask> GetAllTasks();
-
-    public void AddTask(TodoTask task);
-
-    public void UpdateTask(TodoTask task);
-
-    public void RemoveTask(Guid id);
+    public Task<TodoTask?> GetTaskById(Guid id);
+    public Task AddTask(TodoTask task);
+    public Task<IEnumerable<TodoTask>> GetAllTasks();
+    public Task UpdateTask(TodoTask task);
+    public Task RemoveTask(Guid id);
 }
