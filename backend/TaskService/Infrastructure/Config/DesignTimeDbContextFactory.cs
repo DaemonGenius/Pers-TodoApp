@@ -13,7 +13,7 @@ public class DesignTimeDbContextFactory: IDesignTimeDbContextFactory<TaskService
 
         var relativePath = Path.GetFullPath(Path.Combine(
             Path.GetDirectoryName(typeof(DesignTimeDbContextFactory).Assembly.Location) ?? string.Empty,
-            "..", "..", "..", ".."));
+            "..", "..", "..", "..",".."));
 
         // Use IConfiguration for design-time configuration
         var configuration = new ConfigurationBuilder()
