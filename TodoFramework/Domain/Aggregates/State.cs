@@ -1,4 +1,4 @@
-namespace TodoFramework.Domain;
+namespace TodoFramework.Domain.Aggregates;
 
 public abstract class State<TIdentity> where TIdentity: Identity
 {
@@ -18,6 +18,11 @@ public abstract class State<TIdentity> where TIdentity: Identity
     {
         ((dynamic)this).When((dynamic)evt);
     }
+    
+    public virtual bool IsTransient()
+    {
+        return Identity.Equals(default(Identity));
+    }       
 }
 
 public interface IDomainEvent{}

@@ -1,4 +1,6 @@
-namespace TodoFramework.Domain;
+using TodoFramework.Domain.Aggregates.ValueObjects;
+
+namespace TodoFramework.Domain.Aggregates;
 
 public abstract class Identity: ValueObject
 {
