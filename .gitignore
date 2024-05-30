@@ -12,3 +12,7 @@ AppFrontend/bin/
 backend/TaskService/bin/
 
 TaskFramework/bin/
+
+TaskServiceTests/bin/
+
+TaskServiceTests/obj/
