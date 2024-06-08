@@ -3,7 +3,7 @@
     image: ${REGISTRY:-appfrontend}/appfrontend:${TAG:-latest}
     build:
       context: .
-      dockerfile: AppFrontend/Dockerfile
+      dockerfile: Frontend/Frontend/Dockerfile
     ports:
       - '50000:8080'
     environment:

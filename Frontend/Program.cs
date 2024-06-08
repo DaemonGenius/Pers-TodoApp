@@ -1,18 +1,10 @@
-using AppFrontend.Components;
-using TaskService.Application.Config;
-using TaskService.Infrastructure.Config;
+using Frontend.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
-// Register TaskService infrastructure services
-builder.Services.AddInfrastructure(builder.Configuration);
-// Register TaskService Application services
-builder.Services.AddApplication(builder.Configuration);
-
 
 var app = builder.Build();
 

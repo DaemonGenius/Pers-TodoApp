@@ -3,7 +3,7 @@ services:
   app_frontend:
     build:
       context: "D:\\_PERSONAL\\Pers-TodoApp"
-      dockerfile: "AppFrontend/Dockerfile"
+      dockerfile: "Frontend/Frontend/Dockerfile"
       target: "base"
       args:
         BUILD_CONFIGURATION: "Debug"
@@ -17,21 +17,21 @@ services:
     - "--backend-port=57300"
     - "--timeout=60"
     environment:
-      ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net8.0/AppFrontend.staticwebassets.runtime.CT.json"
+      ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net8.0/Frontend.staticwebassets.runtime.CT.json"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
       RIDER_DEBUGGER_LOG_DIR: "/var/opt/rider-debugger"
       RESHARPER_LOG_CONF: "/etc/opt/rider-debugger/backend-log.xml"
     image: "appfrontend/appfrontend:dev"
     ports:
-    - "127.0.0.1:57001:57100"
-    - "127.0.0.1:57201:57300"
+    - "127.0.0.1:57009:57100"
+    - "127.0.0.1:57209:57300"
     volumes:
     - "C:\\Users\\chris\\.nuget\\packages:/home/app/.nuget/packages"
-    - "D:\\_PERSONAL\\Pers-TodoApp\\AppFrontend:/app:rw"
+    - "D:\\_PERSONAL\\Pers-TodoApp\\Frontend\\Frontend:/app:rw"
     - "D:\\_PERSONAL\\Pers-TodoApp:/src:rw"
-    - "C:\\Users\\chris\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2024.1.1\\\
+    - "C:\\Users\\chris\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2024.1.2\\\
       Linux64:/opt/rider-debugger"
     - "C:\\Users\\chris\\AppData\\Local\\Programs\\Rider\\bin:/etc/opt/rider-debugger/backend-log.xml"
     - "C:\\Users\\chris\\AppData\\Local\\JetBrains\\Rider2024.1\\log\\DebuggerWorker\\\
-      JetBrains.Debugger.Worker.2024_5_30_14_34_14:/var/opt/rider-debugger:rw"
+      JetBrains.Debugger.Worker.2024_6_08_17_11_28:/var/opt/rider-debugger:rw"
     working_dir: "/app"

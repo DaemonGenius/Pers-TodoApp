@@ -18,3 +18,11 @@ TaskServiceTests/bin/
 TaskServiceTests/obj/
 
 backend/TaskService.Contracts/obj/
+
+Frontend/node_modules/
+
+Frontend/obj/
+
+Frontend/bin/
+
+backend/TaskService.Contracts/bin/
