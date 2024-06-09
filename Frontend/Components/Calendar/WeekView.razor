@@ -1,58 +1,9 @@
-@page "/WeekView"
-@inject IJSRuntime JS
+@inherits BaseCalendar
 
-<div>
-    <h2>Week View</h2>
-    <div class="grid grid-cols-8 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
-        <div class="flex justify-center bg-gray-50 py-2">
-            <span>Time</span>
-        </div>
-        @foreach (var day in calendarBase.Days)
-        {
-            <div class="flex justify-center bg-white py-2">
-                <span>@day.Substring(0, 3)</span>
-                <span class="sr-only sm:not-sr-only">@day.Substring(3)</span>
-            </div>
-        }
-    </div>
-    <div class="grid grid-cols-8 gap-px">
-        <div class="flex flex-col">
-            @foreach (var timeSlot in calendarBase.TimeSlots.Where(t => t.Minute == 0))
-            {
-                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">
-                    <time datetime="@timeSlot.ToString("HH:mm")">@timeSlot.ToString("h:mm tt")</time>
-                </div>
-            }
-        </div>
-        @foreach (var day in calendarBase.Days)
-        {
-            <div class="flex flex-col">
-                @foreach (var timeSlot in calendarBase.TimeSlots.Where(t => t.Minute == 0))
-                {
-                    <div class="relative bg-white px-3 py-2 border-b border-gray-300">
-                        <time datetime="@timeSlot.ToString("yyyy-MM-ddTHH:mm")"></time>
-                    </div>
-                }
-            </div>
-        }
-    </div>
-</div>
+<DayView CalendarBase="@CalendarBase" Events="@Events"/>
 
 @code {
-    private CalendarBase calendarBase = new CalendarBase();
-    
-    public class CalendarBase
-    {
-        public List<string> Days { get; set; }
-        public List<DateTime> TimeSlots { get; set; }
+    [Parameter] public BaseCalendar.CalendarBase CalendarBase { get; set; }
 
-        public CalendarBase()
-        {
-            var date = DateTime.Now;
-            // Create list of days in a week
-            Days = Enumerable.Range(0, 7).Select(i => Enum.GetName(typeof(DayOfWeek), i)).ToList();
-            // Create list of time slots within a day with 1 hour increment for a week
-            TimeSlots = Enumerable.Range(0, 24 * 60).Select(i => new DateTime(date.Year, date.Month, date.Day, 0, 0, 0).AddHours(i)).ToList();
-        }
-    }
+    [Parameter] public List<CalendarEvent> Events { get; set; }
 }

@@ -27,7 +27,7 @@
                     </svg>
                 </button>
             </div>
-            
+
             <div class="hidden md:ml-4 md:flex md:items-center">
                 <div class="relative">
 
@@ -82,21 +82,20 @@
         </div>
     </header>
     <div class="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
-        @if (viewMode == "Day view")
+        @switch (viewMode)
         {
-            <DayView/>
-        }
-        else if (viewMode == "Week view")
-        {
-            <WeekView/>
-        }
-        else if (viewMode == "Month view")
-        {
-            <MonthView/>
-        }
-        else if (viewMode == "Year view")
-        {
-            <YearView/>
+            case "Day view":
+                <DayView CalendarBase="@calendarBase" Events="@events"/>
+                break;
+            case "Week view":
+                <WeekView CalendarBase="@calendarBase" Events="@events"/>
+                break;
+            case "Month view":
+                <MonthView CalendarBase="@calendarBase" Events="@events"/>
+                break;
+            case "Year view":
+                <YearView CalendarBase="@calendarBase" Events="@events"/>
+                break;
         }
     </div>
 </div>
@@ -104,6 +103,12 @@
 @code {
     private DateTime currentDate = DateTime.Now;
     private string viewMode = "Week view";
+    public CalendarBase calendarBase = new CalendarBase();
+
+    private List<CalendarEvent> events = new List<CalendarEvent>
+    {
+        // Your event data here ...
+    };
 
     private void ChangeView(string mode)
     {
@@ -124,6 +129,30 @@
     public void NextMonth()
     {
         currentDate = currentDate.AddMonths(1);
+    }
+
+    public class CalendarBase
+    {
+        public List<string> Months { get; set; }
+        public List<string> Days { get; set; }
+        public List<DateTime> TimeSlots { get; set; }
+
+        public CalendarBase()
+        {
+            var date = DateTime.Now;
+            Days = Enumerable.Range(0, 7).Select(i => Enum.GetName(typeof(DayOfWeek), i)).ToList();
+            Months = Enumerable.Range(1, 12).Select(i => new DateTime(date.Year, i, 1).ToString("MMMM")).ToList();
+            TimeSlots = Enumerable.Range(0, 24).Select(i => new DateTime(date.Year, date.Month, date.Day, i, 0, 0)).ToList();
+        }
+    }
+
+    public class CalendarEvent
+    {
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Color { get; set; }
     }
 
 }
