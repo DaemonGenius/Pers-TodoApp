@@ -113,12 +113,13 @@
                     {
                         <div class="relative bg-white px-3 py-2">
                             <time datetime="2022-01-@(day + 3)T@(hour.ToString("D2")):00"></time>
-                            @foreach (var evt in events.Where(e => e.Start.DayOfWeek == (DayOfWeek)day && e.Start.Hour <= hour && e.End.Hour > hour))
+                            @foreach (var evt in events.Where(e => e.Start.DayOfWeek == (DayOfWeek)day && e.Start.Hour == hour))
                             {
-                                <div class="absolute inset-0 m-1 p-2 rounded @evt.Color">
+                                var top = (evt.Start.Minute / 60.0) * 100;
+                                var height = ((evt.End - evt.Start).TotalMinutes / 60.0) * 100;
+                                <div class="absolute left-0 right-0 m-1 p-2 rounded @evt.Color" style="top:@top%; height:@height%; z-index:1;">
+                                    <time class="text-xs font-medium text-gray-500" datetime="@(evt.Start.ToString("yyyy-MM-ddTHH:mm"))">@evt.Start.ToString("h:mm tt")</time>
                                     <p class="font-medium text-gray-900">@evt.Title</p>
-                                    <p class="text-gray-700">@evt.Description</p>
-                                    <time datetime="@(evt.Start.ToString("yyyy-MM-ddTHH:mm"))">@evt.Start.ToString("h:mm tt")</time> - <time datetime="@(evt.End.ToString("yyyy-MM-ddTHH:mm"))">@evt.End.ToString("h:mm tt")</time>
                                 </div>
                             }
                         </div>
@@ -155,7 +156,7 @@
             Start = new DateTime(2022, 1, 10, 7, 30, 0),
             End = new DateTime(2022, 1, 10, 9, 0, 0),
             Title = "Flight to Paris",
-            Description = "Flight to Paris",
+            Description = "Flight to Paris Description",
             Color = "bg-pink-100"
         },
         new CalendarEvent
