@@ -1,5 +1,4 @@
 @page "/"
-@rendermode InteractiveServer
 
 @using System.Globalization
 
@@ -116,18 +115,19 @@
         viewMode = mode;
     }
 
-    public void Today()
+    private void Today()
     {
         currentDate = DateTime.Now;
     }
 
-    public void PreviousMonth()
+    private void PreviousMonth()
     {
         currentDate = currentDate.AddMonths(-1);
     }
 
-    public void NextMonth()
+    private void NextMonth()
     {
+        Console.WriteLine("Clicked!!");
         currentDate = currentDate.AddMonths(1);
     }
 
